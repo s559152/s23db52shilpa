@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  - var ima = ["dog", "baby", "sky", "tree", "rain"]
+  - for(let i = 0; i < 3; i++) {
+    - let number = Math.floor(Math.random() * 5)
+    img(src=`/images/${ima[number]}.jpg`, alt="", height="300px", width="300px")
+  - } 
