@@ -1,0 +1,7 @@
+const mongoose = require("mongoose")
+const BankSchema = mongoose.Schema({
+Bank_Name: String,
+Account_Type: String,
+Balance: Number
+})
+module.exports = mongoose.model("Bank",BankSchema)
