@@ -15,9 +15,9 @@ exports.Bank_create_post = async function(req, res) {
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
     // {"costume_type":"goat", "cost":12, "size":"large"}
-    document.Bank_type = req.body.Bank_type;
-    document.cost = req.body.cost;
-    document.size = req.body.size;
+    document.Bank_Name = req.body.Bank_Name;
+    document.Account_Type = req.body.Account_Type;
+    document.Balance = req.body.Balance;
     try{
     let result = await document.save();
     res.send(result);
