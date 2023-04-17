@@ -8,5 +8,6 @@ router.get('/', function(req, res, next) {
 });*/
 router.get('/', Bank_controlers.Bank_view_all_Page );
 router.get('/Bank/:id', Bank_controlers.Bank_detail);
+router.get('/detail', Bank_controlers.Bank_view_all_Page);
 
 module.exports = router;

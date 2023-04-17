@@ -40,7 +40,7 @@ exports.Bank_create_post = async function(req, res) {
 exports.Bank_delete = async function(req, res) {
     console.log("delete " + req.params.id)
     try {
-    result = await Costume.findByIdAndDelete( req.params.id)
+    result = await Bank.findByIdAndDelete( req.params.id)
     console.log("Removed " + result)
     res.send(result)
     } catch (err) {
@@ -90,12 +90,14 @@ exports.Bank_list = async function(req, res) {
 // VIEWS
 // Handle a show all view
 exports.Bank_view_all_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
     try{
-    theBank = await Bank.find();
-    res.render('Bank', { title: 'Bank Search Results', results: theBank });
+    result = await Bank.findById( req.query.id)
+    res.render('Bankdetail',
+    { title: 'Bank Detail', toShow: result });
     }
     catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
     }
     };
