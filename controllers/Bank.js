@@ -37,9 +37,19 @@ exports.Bank_create_post = async function(req, res) {
     };
     
 // Handle Bank delete form on DELETE.
-exports.Bank_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: Bank delete DELETE ' + req.params.id);
-};
+exports.Bank_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Costume.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+    
+    
 // Handle Bank update form on PUT.
 exports.Bank_update_put = async function(req, res) {
     console.log(`update on id ${req.params.id} with body
