@@ -1,24 +1,20 @@
 extends layout
 block content
-h1= title
-- let Bankid = toShow._id
-- let Bank_Name = toShow.Bank_Name
-- let Account_Type = toShow.Account_Type
-- let Balance = toShow.Balance
-div
-div.row
-div(class='BankAttr mr-3') Bank ID is:
-div #{Bankid}
-div.row
-div(class='BankAttr mr-3') Bank Type is:
-div #{Bank_Name}
-div.row
-div(class='BankAttr mr-3') Bank Size is:
-div #{Account_Type}
-div.row
-div(class='BankAttr mr-3') Bank Cost is:
-div #{Balance}
-.BankAttr {
-background-color: aquamarine;
-width: 120px;
-}
+ h1= title
+ - let Bankid = toShow._id
+ - let Bank_Name = toShow.Bank_Name
+ - let Account_Type = toShow.Account_Type
+ - let Balance = toShow.Balance
+ div
+ div.row
+ div(class='BankAttr mr-3') Bank ID is:
+ div #{Bankid}
+ div.row
+ div(class='BankAttr mr-3') Bank_Name is:
+ div #{Bank_Name}
+ div.row
+ div(class='BankAttr mr-3') Account_Type is:
+ div #{Account_Type}
+ div.row
+ div(class='BankAttr mr-3') Balance is:
+ div #{Balance}

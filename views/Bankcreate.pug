@@ -1,0 +1,35 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='BankForm', action="/resource/Bank", method="POST") 
+    div.form-group 
+        label.BankAttr(for='Bank_Name') Bank Bank_Name
+        input#Bank_Name(type='text', name='Bank_Name') 
+    div.form-group 
+        label.BankAttr(for='Account_Type') Bank Account_Type
+        input#Account_Type(type='text', name='Account_Type') 
+    div.form-group 
+        label.BankAttr(for='Balance') Bank Balance 
+        input#Balance(type='number', name='Balance') 
+    
+    input(type="submit") 
+ 
+  script. 
+    document.forms['BankForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    });

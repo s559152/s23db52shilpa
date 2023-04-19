@@ -1,8 +1,6 @@
 var Bank = require('../models/Bank');
 // List of all Banks
-exports.Bank_list = function(req, res) {
-res.send('NOT IMPLEMENTED: Bank list');
-};
+
 // for a specific Bank.
 exports.Bank_detail = async function(req, res) {
     console.log("detail" + req.params.id)
@@ -13,7 +11,7 @@ exports.Bank_detail = async function(req, res) {
     res.status(500)
     res.send(`{"error": document for id ${req.params.id} not found`);
     }
-    };
+};
     
 // Handle Bank create on POST.
 exports.Bank_create_post = async function(req, res) {
@@ -34,19 +32,18 @@ exports.Bank_create_post = async function(req, res) {
     res.status(500);
     res.send(`{"error": ${err}}`);
     }
-    };
-    
-// Handle Bank delete form on DELETE.
-exports.Bank_delete = async function(req, res) {
-    console.log("delete " + req.params.id)
-    try {
-    result = await Bank.findByIdAndDelete( req.params.id)
-    console.log("Removed " + result)
-    res.send(result)
-    } catch (err) {
-    res.status(500)
-    res.send(`{"error": Error deleting ${err}}`);
-    }
+};
+
+    exports.Bank_delete = async function(req, res) {
+        console.log("delete " + req.params.id)
+        try {
+        result = await Bank.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+        } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+        }
     };
     
     
@@ -85,11 +82,20 @@ exports.Bank_list = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
-    
-    
+
+    exports.Bank_view_all_Page = async function(req, res) {
+        try{
+        theBank = await Bank.find();
+        res.render('Bank', { title: 'Bank Search Results', results: theBank });
+        }
+        catch(err){
+        res.status(500);
+        res.send(`{"error": ${err}}`);
+        }
+        };
 // VIEWS
 // Handle a show all view
-exports.Bank_view_all_Page = async function(req, res) {
+exports.Bank_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
     result = await Bank.findById( req.query.id)
@@ -101,3 +107,41 @@ exports.Bank_view_all_Page = async function(req, res) {
     res.send(`{'error': '${err}'}`);
     }
     };
+    exports.Bank_create_Page = function(req, res) {
+        console.log("create view")
+        try{
+        res.render('Bankcreate', { title: 'Bank Create'});
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+        };
+        exports.Bank_update_Page = async function(req, res) {
+            console.log("update view for item "+req.query.id)
+            try{
+            let result = await Bank.findById(req.query.id)
+            res.render('Bankupdate', { title: 'Bank Update', toShow: result });
+            }
+            catch(err){
+            res.status(500)
+            res.send(`{'error': '${err}'}`);
+            }
+            };
+            
+            exports.Bank_delete_Page = async function(req, res) {
+                console.log("Delete view for id " + req.query.id)
+                try{
+                result = await Bank.findById(req.query.id)
+                res.render('Bankdelete', { title: 'Bank Delete', toShow:
+                result });
+                }
+                catch(err){
+                res.status(500)
+                res.send(`{'error': '${err}'}`);
+                }
+                };
+            
+        
+    
+        

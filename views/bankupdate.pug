@@ -1,0 +1,46 @@
+extends layout 
+
+block content 
+  h1= title
+  if(toShow==null)
+    h2 No instance to Detail
+  else
+  - let Bankid = toShow._id 
+  - let Bank_name = toShow.Bank_name
+  - let Count = toShow.Count
+  - let Bank_type = toShow.Bank_type
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{Bankid} 
+  - let actionid = "/resource/Bank/" + Bankid 
+  form(id='BankForm', action= actionid, method="PUT") 
+    
+    div.form-group 
+        label.BankAttr(for='Bank_Name') Bank Bank_Name
+        input#Bank_name(type='text', name='Bank_Name', value= Bank_Name ) 
+    div.form-group 
+        label.BankAttr(for='Account_Type') Bank Account_Type
+        input#Count(type='text', name='Account_Type', value= Account_Type ) 
+    div.form-group 
+        label.BankAttr(for='Balance') Bank Balance
+        input#Bank_type(type='number', name='Balance', value= Balance )
+    input(type="submit") 
+ 
+  script. 
+    document.forms['BankForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    });
