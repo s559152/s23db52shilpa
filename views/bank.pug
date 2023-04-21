@@ -2,16 +2,18 @@ extends layout
 
 block content
   h1= title
-  - let results = [ { Bank_Name:"SBI", Account_Type:"Savings", Balance:25000 }, { Bank_Name:"UNION", Account_Type:"Salaried", Balance:85000 }, { Bank_Name:"RBL", Account_Type:"Current", Balance:345000 } ];
-
-  div.container-fluid
-    div.row
-      each item,index in results
-        div.col-sm-2(onclick=`buy(${index})`)
+  - let items = results;
+  div(class="container-fluid")
+    div(class="row")
+      each item,index in items
+        - let destination = `dispatch(\"/Bank/update?id=${item._id}\")`
+        div(class="col-sm-2" class="m-1")
           h3 #{item.Bank_Name}
           p #{item.Account_Type}
           p #{item.Balance}
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
   script.
-    function buy(index){
-      alert(`You have purchased item ${index}`);
+    function dispatch(path){
+      console.log(path);
+      window.location.href=path;
     }
