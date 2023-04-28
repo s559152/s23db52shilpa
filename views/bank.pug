@@ -2,16 +2,25 @@ extends layout
 
 block content
   h1= title
+  <br>
+  - let Create = `dispatch(\"/handbags/create\")`
+   button.btn( class="btn-primary ml-1", onclick= Create) Create
   - let items = results;
   div(class="container-fluid")
     div(class="row")
       each item,index in items
         - let destination = `dispatch(\"/Bank/update?id=${item._id}\")`
+        - let detail = `dispatch(\"/handbags/detail?id=${item._id}\")`
+        - let Delete = `dispatch(\"/handbags/delete?id=${item._id}\")`
         div(class="col-sm-2" class="m-1")
           h3 #{item.Bank_Name}
           p #{item.Account_Type}
           p #{item.Balance}
           button.btn( class="btn-primary ml-1", onclick= destination) Update
+          br
+          button.btn( class="btn-primary ml-1", onclick= detail) Details
+          br
+          button.btn( class="btn-primary ml-1", onclick= Delete) Delete
   script.
     function dispatch(path){
       console.log(path);
