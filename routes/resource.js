@@ -6,16 +6,16 @@ var Bank_controller = require('../controllers/Bank');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
-/// COSTUME ROUTES ///
-// POST request for creating a Costume.
+/// Bank ROUTES ///
+// POST request for creating a Bank.
 router.post('/Bank', Bank_controller.Bank_create_post);
-// DELETE request to delete Costume.
+// DELETE request to delete Bank.
 router.delete('/Bank/:id', Bank_controller.Bank_delete);
-// PUT request to update Costume.
+// PUT request to update Bank.
 router.put('/Bank/:id', Bank_controller.Bank_update_put);
-// GET request for one Costume.
+// GET request for one Bank.
 router.get('/Bank/:id', Bank_controller.Bank_detail);
-// GET request for list of all Costume items.
+// GET request for list of all Bank items.
 router.get('/Bank', Bank_controller.Bank_list);
 module.exports = router;
 

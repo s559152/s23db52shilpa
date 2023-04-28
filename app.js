@@ -3,8 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
   Account.findOne({ username: username }, function (err, user) {
@@ -27,8 +29,7 @@ mongoose = require('mongoose');
 mongoose.connect(connectionString,{useNewUrlParser: true,useUnifiedTopology: true});
 
 
-app.use(passport.initialize());
-app.use(passport.session());
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", function(){
@@ -44,11 +45,7 @@ var Bank = require("./models/Bank");
 var ResourceRouter= require("./routes/resource");
 
 
-  app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-    }));
+  
     
 
 var app = express();
@@ -63,12 +60,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+  }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bank',bankRouter);
 app.use('/board',boardRouter);
 app.use('/selector',selectorsRouter);
 app.use('/resource',ResourceRouter);
+
+var Account =require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+
+
 
 async function recreateDB(){
   // Delete everything
